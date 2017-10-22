@@ -1,11 +1,12 @@
-#!/usr/bin/env python3
-
 import time
-import pygame
+from pygame import mixer
 import os
 
 def ClearScreen():
-    os.system('clear')
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 def Notify(working):
     filename = ''
@@ -13,8 +14,8 @@ def Notify(working):
         filename = 'work.wav'
     else:
         filename = 'rest.wav'
-    pygame.mixer.music.load(filename)
-    pygame.mixer.music.play()
+    mixer.music.load(filename)
+    mixer.music.play()
 
 def Update(working, length, mins):
     if working:
@@ -46,7 +47,7 @@ def Pomodoro(work_length, rest_length):
         working = not working
 
 def main():
-    pygame.init()
+    mixer.init()
     work_length = int(input('Minutes of work: '))
     rest_length = int(input('Minutes of rest: '))
 
